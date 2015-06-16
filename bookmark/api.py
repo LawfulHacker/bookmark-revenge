@@ -19,5 +19,6 @@ class BookmarkResource(ModelResource):
         return bundle.obj.tags
 
     def build_filters(self, filters=None):
-        ModelResource.build_filters(filters)
-        print(filters)
+        if 'tags__contains' in filters:
+            filters['tags__contains'] = filters['tags__contains'].split(',')
+        return ModelResource.build_filters(self, filters)
